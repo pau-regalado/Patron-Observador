@@ -1,0 +1,41 @@
+@startuml
+
+title __OBSERVADOR's Class Diagram__\n
+
+class Observador.EjemploObservador {
+    {static} + main()
+}
+
+interface Observador.Observador {
+    {abstract} + actualizar()
+}
+
+class Observador.ObservadorConcreto {
+    - nombre : String
+    + ObservadorConcreto()
+    + actualizar()
+}
+
+interface Observador.Sujeto {
+    {abstract} + agregarObservador()
+    {abstract} + eliminarObservador()
+    {abstract} + notificarObservadores()
+}
+
+class Observador.SujetoConcreto {
+    - observadores : List<Observador>
+    + agregarObservador()
+    + eliminarObservador()
+    + notificarObservadores()
+    + realizarAccionImportante()
+}
+
+Observador.ObservadorConcreto .up.|> Observador.Observador
+Observador.SujetoConcreto .up.|> Observador.Sujeto
+
+Observador.Sujeto -> Observador.Observador
+
+Observador.EjemploObservador -> Observador.SujetoConcreto : crea
+Observador.SujetoConcreto <- Observador.ObservadorConcreto : observa
+
+@enduml
