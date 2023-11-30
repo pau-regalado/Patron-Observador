@@ -68,7 +68,7 @@ public class SeleccionCiudad {
             public void run() {
                 actualizarCondicionesMeteorologicas();
             }
-        }, 0, 60000); // Se ejecuta inmediatamente y luego cada 60000 milisegundos (60 segundos)
+        }, 0, 30000); // Se ejecuta inmediatamente y luego cada 30000 milisegundos (30 segundos)
     }
 
 
@@ -86,6 +86,4 @@ public class SeleccionCiudad {
             }
         }
     }
-
-
 }

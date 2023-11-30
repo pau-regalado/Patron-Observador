@@ -10,7 +10,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class WeatherStackAPI {
-    String apiKey = "6d17415ee1b47b2434bde4826cf59f16";
+    String apiKey = "5cfbdb768ce502c32fb609af82754840";
     String apiUrl = "http://api.weatherstack.com/current?access_key=" + apiKey + "&query=";
 
     public String getWeatherConditionsFrom(String zone) {

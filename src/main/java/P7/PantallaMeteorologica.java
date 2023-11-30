@@ -15,6 +15,7 @@ public class PantallaMeteorologica implements Observador {
     private JLabel labelTemperatura;
     private JLabel labelHumedad;
     private JLabel labelIcono;
+    private JLabel labelAlerta;
 
     public PantallaMeteorologica(String ciudad) {
         frame = new JFrame(ciudad);
@@ -64,6 +65,12 @@ public class PantallaMeteorologica implements Observador {
         labelHumedad.setBounds(300, 160, 140, 35);
         frame.add(labelHumedad);
 
+        labelAlerta = new JLabel();
+        labelAlerta.setForeground(Color.RED);
+        labelAlerta.setFont(new Font("Arial", Font.BOLD, 18));
+        labelAlerta.setBounds(10, 200, 450, 35);
+        frame.add(labelAlerta);
+
         frame.setSize(470, 362);
         frame.setVisible(true);
     }
@@ -97,6 +104,7 @@ public class PantallaMeteorologica implements Observador {
                     labelIcono.setText("Icono no disponible");
                 }
             });
+            mostrarAlertaSiNecesario(current);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error al procesar la respuesta JSON: " + condicionesJSON);
@@ -124,6 +132,17 @@ public class PantallaMeteorologica implements Observador {
         }
     }
 
+    private void mostrarAlertaSiNecesario(JSONObject current) {
+        int temperaturaActual = current.optInt("temperature", 0);
+
+        if (temperaturaActual > 25) {
+            labelAlerta.setText("¡Alerta de Calor! Considere tomar precauciones.");
+        }else if (temperaturaActual < 5) {
+            labelAlerta.setText("¡Alerta de Frio! Considere tomar precauciones.");
+        } else {
+            labelAlerta.setText("");
+        }
+    }
 }
 
 
