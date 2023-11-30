@@ -1,0 +1,38 @@
+@startuml
+class P7.WeatherStackAPI {
+~ String apiKey
+~ String apiUrl
++ String getWeatherConditionsFrom(String)
+- {static} String getWeatherConditionFromResponse(JsonNode)
+}
+class P7.WeatherstackExample {
++ {static} void main(String[])
+}
+interface P7.Observador {
+~ void actualizar(String)
+}
+class P7.PantallaMeteorologica {
+- JFrame frame
+- JLabel labelCiudad
+- JLabel labelHora
+- JLabel labelTemperatura
+- JLabel labelHumedad
+- JLabel labelIcono
++ void actualizar(String)
+}
+class P7.SeleccionCiudad {
+- JFrame frame
+- Map<String,JCheckBox> checkBoxes
+- SujetoWeatherstack sujeto
+- WeatherStackAPI weatherStackAPI
+- void procesarSeleccion()
+}
+class P7.SujetoWeatherstack {
+- Map<String,List<Observador>> observadoresPorCiudad
++ void agregarObservador(String,Observador)
++ void notificarObservadores(String,String)
+}
+
+
+P7.Observador <|.. P7.PantallaMeteorologica
+@enduml

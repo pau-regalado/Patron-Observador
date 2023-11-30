@@ -1,29 +1,23 @@
 package P7;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-// Sujeto (clase que proporciona actualizaciones a los observadores)
-class SujetoWeatherstack {
-    private List<Observador> observadores = new ArrayList<>();
-    private String condicionesMeteorologicas;
+public class SujetoWeatherstack {
+    private Map<String, List<Observador>> observadoresPorCiudad = new HashMap<>();
 
-    public void agregarObservador(Observador observador) {
-        observadores.add(observador);
+    public void agregarObservador(String ciudad, Observador observador) {
+        observadoresPorCiudad.putIfAbsent(ciudad, new ArrayList<>());
+        observadoresPorCiudad.get(ciudad).add(observador);
     }
 
-    public void eliminarObservador(Observador observador) {
-        observadores.remove(observador);
-    }
-
-    public void notificarObservadores() {
-        for (Observador observador : observadores) {
-            observador.actualizar(condicionesMeteorologicas);
+    public void notificarObservadores(String ciudad, String condicionesMeteorologicas) {
+        if (observadoresPorCiudad.containsKey(ciudad)) {
+            for (Observador observador : observadoresPorCiudad.get(ciudad)) {
+                observador.actualizar(condicionesMeteorologicas);
+            }
         }
-    }
-
-    public void setCondicionesMeteorologicas(String condicionesMeteorologicas) {
-        this.condicionesMeteorologicas = condicionesMeteorologicas;
-        notificarObservadores();
     }
 }
